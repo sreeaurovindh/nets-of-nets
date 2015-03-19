@@ -16,7 +16,7 @@ TABLES['journal'] = (
     ") ENGINE=InnoDB")
 password='Dellxcd35$'
 
-cnx = mysql.connector.connect(user='root', password=password)
+cnx = mysql.connector.connect(user='root', password='root')
 
 print(cnx)
 
@@ -57,7 +57,7 @@ for name, ddl in TABLES.items():
 # cnx.close()
 
 add_journal = "INSERT INTO verified_papers.journal (venue_name) VALUES ("
-open_file = "C:\\Users\\Darshan\\Desktop\\ASU\\DBLP_Citation_2014_May\\DBLP_Citation_2014_May\\publications.txt"
+open_file = "C:\\Personal\\Academics\\Spring2015\\publications.txt"
 with open(open_file, encoding="utf8") as fp:
     for line in fp:
         if (line.find("#*")) == 0:
@@ -66,7 +66,7 @@ with open(open_file, encoding="utf8") as fp:
             title = title.replace('\n','',1)
             title = title.replace("'",'',1)
             for char in title:
-                if char in " .'\"`":
+                if char in ".'\"`":
                     title=title.replace(char,'')
             #title = str.split(line, '#*'),
             #print(title)
@@ -85,11 +85,11 @@ with open(open_file, encoding="utf8") as fp:
             for char in venue:
                 if char in " .'\"`":
                     venue=venue.replace(char,'')
-            print(venue)
+            #print(venue)
         if (line.find("#index")) == 0:
             index1 = line.replace('#index','',1)
             index1 = index1.replace('\n','',1)
-            print(index1)
+            #print(index1)
             cmd1="SELECT * from verified_papers.journal where venue_name="+"'"+venue+"';"
             cursor.execute(cmd1)
 
@@ -97,11 +97,12 @@ with open(open_file, encoding="utf8") as fp:
             data = cursor.fetchone()
             #print(data[0])
             if data:
-                print("venue alreday exists")
+                a = 1
+                #print("venue alreday exists")
             else:
                 #print(venue)
                 cmd = add_journal+"'"+venue+"');"
-                print(cmd)
+                #print(cmd)
                 # Insert new employee
                 cursor.execute(cmd)
                 id = cursor.lastrowid
